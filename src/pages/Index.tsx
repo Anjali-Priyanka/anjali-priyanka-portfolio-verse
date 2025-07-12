@@ -29,47 +29,29 @@ const Index = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    try {
-      // Try Formspree first - you'll need to replace this with your actual Formspree endpoint
-      const response = await fetch('https://formspree.io/f/xdkobvpq', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-        }),
-      });
-
-      if (response.ok) {
-        toast({
-          title: "Message Sent!",
-          description: "Thank you for your message. I'll get back to you soon!",
-        });
-        setFormData({ name: '', email: '', message: '' });
-      } else {
-        throw new Error('Formspree endpoint not working');
-      }
-    } catch (error) {
-      // Fallback to mailto if Formspree fails
-      const subject = encodeURIComponent(`Portfolio Contact: Message from ${formData.name}`);
-      const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
-      const mailtoLink = `mailto:priyanka.vechalapu@gmail.com?subject=${subject}&body=${body}`;
-      
-      window.open(mailtoLink, '_blank');
-      
-      toast({
-        title: "Opening Email Client",
-        description: "Please send the message through your email client, or contact me directly at priyanka.vechalapu@gmail.com",
-        variant: "default",
-      });
-      
-      setFormData({ name: '', email: '', message: '' });
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Create mailto link with pre-filled content
+    const subject = encodeURIComponent(`Portfolio Contact: Message from ${formData.name}`);
+    const body = encodeURIComponent(
+      `Hi Anjali,\n\nYou have received a new message from your portfolio website.\n\n` +
+      `Name: ${formData.name}\n` +
+      `Email: ${formData.email}\n\n` +
+      `Message:\n${formData.message}\n\n` +
+      `Best regards,\n${formData.name}`
+    );
+    const mailtoLink = `mailto:priyanka.vechalapu@gmail.com?subject=${subject}&body=${body}`;
+    
+    // Open email client
+    window.open(mailtoLink, '_blank');
+    
+    toast({
+      title: "Email Client Opened!",
+      description: "Your default email app should open with the message pre-filled. Just click send!",
+      variant: "default",
+    });
+    
+    // Clear form
+    setFormData({ name: '', email: '', message: '' });
+    setIsSubmitting(false);
   };
 
   const skills = [
@@ -378,10 +360,11 @@ const Index = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                <p className="text-sm text-blue-800">
-                  <strong>Note:</strong> If the form doesn't work, it will automatically open your email client. 
-                  You can also reach me directly at <strong>priyanka.vechalapu@gmail.com</strong>
+              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                <p className="text-sm text-green-800">
+                  <strong>✅ How it works:</strong> Fill out the form below and click "Send Message". 
+                  This will open your default email app (like Gmail, Outlook, etc.) with the message pre-filled. 
+                  Just click send in your email app! 📧
                 </p>
               </div>
               <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl mx-auto">
@@ -441,7 +424,7 @@ const Index = () => {
                     {isSubmitting ? (
                       <>
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                        Sending...
+                        Opening Email...
                       </>
                     ) : (
                       <>
@@ -452,6 +435,15 @@ const Index = () => {
                   </Button>
                 </div>
               </form>
+              
+              <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <p className="text-sm text-blue-800 text-center">
+                  <strong>Alternative:</strong> You can also email me directly at{' '}
+                  <a href="mailto:priyanka.vechalapu@gmail.com" className="font-semibold underline">
+                    priyanka.vechalapu@gmail.com
+                  </a>
+                </p>
+              </div>
             </CardContent>
           </Card>
         </section>
