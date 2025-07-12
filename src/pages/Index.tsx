@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -31,6 +30,7 @@ const Index = () => {
     setIsSubmitting(true);
 
     try {
+      // Try Formspree first - you'll need to replace this with your actual Formspree endpoint
       const response = await fetch('https://formspree.io/f/xdkobvpq', {
         method: 'POST',
         headers: {
@@ -50,14 +50,23 @@ const Index = () => {
         });
         setFormData({ name: '', email: '', message: '' });
       } else {
-        throw new Error('Failed to send message');
+        throw new Error('Formspree endpoint not working');
       }
     } catch (error) {
+      // Fallback to mailto if Formspree fails
+      const subject = encodeURIComponent(`Portfolio Contact: Message from ${formData.name}`);
+      const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
+      const mailtoLink = `mailto:priyanka.vechalapu@gmail.com?subject=${subject}&body=${body}`;
+      
+      window.open(mailtoLink, '_blank');
+      
       toast({
-        title: "Error",
-        description: "Failed to send message. Please try again or contact me directly.",
-        variant: "destructive",
+        title: "Opening Email Client",
+        description: "Please send the message through your email client, or contact me directly at priyanka.vechalapu@gmail.com",
+        variant: "default",
       });
+      
+      setFormData({ name: '', email: '', message: '' });
     } finally {
       setIsSubmitting(false);
     }
@@ -369,6 +378,12 @@ const Index = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
+              <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <p className="text-sm text-blue-800">
+                  <strong>Note:</strong> If the form doesn't work, it will automatically open your email client. 
+                  You can also reach me directly at <strong>priyanka.vechalapu@gmail.com</strong>
+                </p>
+              </div>
               <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl mx-auto">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
