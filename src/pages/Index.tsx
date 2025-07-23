@@ -360,13 +360,7 @@ const Index = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-                <p className="text-sm text-green-800">
-                  <strong>✅ How it works:</strong> Fill out the form below and click "Send Message". 
-                  This will open your default email app (like Gmail, Outlook, etc.) with the message pre-filled. 
-                  Just click send in your email app! 📧
-                </p>
-              </div>
+              
               <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl mx-auto">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
@@ -438,7 +432,7 @@ const Index = () => {
               
               <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
                 <p className="text-sm text-blue-800 text-center">
-                  <strong>Alternative:</strong> You can also email me directly at{' '}
+                  You can also email me directly at{' '}
                   <a href="mailto:priyanka.vechalapu@gmail.com" className="font-semibold underline">
                     priyanka.vechalapu@gmail.com
                   </a>
