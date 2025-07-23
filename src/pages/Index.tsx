@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, Github, Linkedin, ExternalLink, Send, User, GraduationCap, Briefcase, Award, Code, FolderOpen, Lightbulb, Target } from 'lucide-react';
+import { Mail, Phone, Github, Linkedin, ExternalLink, Send, User, GraduationCap, Briefcase, Award, Code, FolderOpen, Lightbulb, Target, Eye } from 'lucide-react';
 import Navigation from '../components/Navigation';
 import ProfilePhoto from '../components/ProfilePhoto';
 
@@ -17,6 +18,31 @@ const Index = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Animation on scroll
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    const elements = document.querySelectorAll('.animate-on-scroll, .animate-on-scroll-left, .animate-on-scroll-right');
+    elements.forEach((el) => observerRef.current?.observe(el));
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -65,37 +91,58 @@ const Index = () => {
     {
       title: "Electricity Price Forecasting",
       description: "ML-based prediction to optimize energy use in cloud computing (M.Tech Project)",
-      type: "Academic"
+      type: "Academic",
+      image: "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=800",
+      github: "https://github.com/Anjali-Priyanka/electricity-price-forecasting",
+      isFullStack: false
     },
     {
       title: "Text Mining on Jane Austen's Novels",
       description: "NLP and sentiment analysis using R (B.Tech Project)",
-      type: "Academic"
+      type: "Academic",
+      image: "https://images.pexels.com/photos/256559/pexels-photo-256559.jpeg?auto=compress&cs=tinysrgb&w=800",
+      github: "https://github.com/Anjali-Priyanka/text-mining-jane-austen",
+      isFullStack: false
     },
     {
       title: "AI Study Buddy",
       description: "Real-time Q&A app using LangChain, Groq API, Streamlit",
-      type: "AI Project"
+      type: "AI Project",
+      image: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=800",
+      github: "https://github.com/Anjali-Priyanka/ai-study-buddy",
+      isFullStack: false
     },
     {
       title: "AI Agent",
       description: "Automated intelligent flows using n8n, APIs, and ChatGPT",
-      type: "AI Project"
+      type: "AI Project",
+      image: "https://images.pexels.com/photos/8386434/pexels-photo-8386434.jpeg?auto=compress&cs=tinysrgb&w=800",
+      github: "https://github.com/Anjali-Priyanka/ai-agent",
+      isFullStack: false
     },
     {
       title: "Patient Appointment RAC App",
       description: "RAG-based AI app using Gemini, Pinecone, LangChain",
-      type: "AI Project"
+      type: "AI Project",
+      image: "https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=800",
+      github: "https://github.com/Anjali-Priyanka/patient-appointment-rag",
+      isFullStack: false
     },
     {
       title: "Multimodal Media Generator",
       description: "No-code AI workflow using Suno AI and InVideo AI",
-      type: "AI Project"
+      type: "AI Project",
+      image: "https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=800",
+      github: "https://github.com/Anjali-Priyanka/multimodal-media-generator",
+      isFullStack: false
     },
     {
       title: "FinGenAI",
       description: "ChatGPT-powered financial assistant built with Lovable",
-      type: "AI Project"
+      type: "AI Project",
+      image: "https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&w=800",
+      github: "https://github.com/Anjali-Priyanka/fingenai",
+      isFullStack: true
     }
   ];
 
@@ -112,7 +159,7 @@ const Index = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section id="hero" className="pt-24 pb-16 px-6">
+      <section id="hero" className="pt-24 pb-16 px-6 animate-fade-in">
         <div className="max-w-4xl mx-auto text-center animate-fade-in">
           <ProfilePhoto />
           <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-4">
@@ -168,10 +215,10 @@ const Index = () => {
       <main className="max-w-6xl mx-auto px-6 space-y-20">
         
         {/* About Me */}
-        <section id="about" className="animate-slide-up">
-          <Card className="shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
+        <section id="about" className="animate-on-scroll">
+          <Card className="shadow-lg hover:shadow-xl transition-all duration-500 hover-lift bg-card/50 backdrop-blur-sm border border-border/50">
             <CardHeader>
-              <CardTitle className="flex items-center gap-3 text-3xl text-foreground">
+              <CardTitle className="flex items-center gap-3 text-3xl text-foreground animate-bounce-in">
                 <div className="p-2 bg-primary/10 rounded-lg">
                   <User className="w-8 h-8 text-primary" />
                 </div>
@@ -187,10 +234,10 @@ const Index = () => {
         </section>
 
         {/* Education */}
-        <section id="education" className="animate-slide-up">
-          <Card className="shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
+        <section id="education" className="animate-on-scroll-left">
+          <Card className="shadow-lg hover:shadow-xl transition-all duration-500 hover-lift bg-card/50 backdrop-blur-sm border border-border/50">
             <CardHeader>
-              <CardTitle className="flex items-center gap-3 text-3xl text-foreground">
+              <CardTitle className="flex items-center gap-3 text-3xl text-foreground animate-scale-in">
                 <div className="p-2 bg-accent/10 rounded-lg">
                   <GraduationCap className="w-8 h-8 text-accent" />
                 </div>
@@ -198,12 +245,12 @@ const Index = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="border-l-4 border-primary pl-6 py-2">
+              <div className="border-l-4 border-primary pl-6 py-4 bg-primary/5 rounded-r-lg hover:bg-primary/10 transition-all duration-300">
                 <h3 className="text-xl font-semibold text-foreground">M.Tech in Computer Science and Technology</h3>
                 <p className="text-muted-foreground font-medium">Sanketika Vidya Parishad Engineering College</p>
                 <p className="text-muted-foreground">2023–2025 | Grade: 85%</p>
               </div>
-              <div className="border-l-4 border-accent pl-6 py-2">
+              <div className="border-l-4 border-accent pl-6 py-4 bg-accent/5 rounded-r-lg hover:bg-accent/10 transition-all duration-300">
                 <h3 className="text-xl font-semibold text-foreground">B.Tech in Computer Science and Engineering</h3>
                 <p className="text-muted-foreground font-medium">Sanketika Vidya Parishad Engineering College</p>
                 <p className="text-muted-foreground">2017–2021 | Grade: 70%</p>
@@ -213,10 +260,10 @@ const Index = () => {
         </section>
 
         {/* Experience */}
-        <section id="experience" className="animate-slide-up">
-          <Card className="shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
+        <section id="experience" className="animate-on-scroll-right">
+          <Card className="shadow-lg hover:shadow-xl transition-all duration-500 hover-lift bg-card/50 backdrop-blur-sm border border-border/50">
             <CardHeader>
-              <CardTitle className="flex items-center gap-3 text-3xl text-foreground">
+              <CardTitle className="flex items-center gap-3 text-3xl text-foreground animate-scale-in">
                 <div className="p-2 bg-primary/10 rounded-lg">
                   <Briefcase className="w-8 h-8 text-primary" />
                 </div>
@@ -224,13 +271,13 @@ const Index = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="border-l-4 border-accent pl-6 py-2">
+              <div className="border-l-4 border-accent pl-6 py-4 bg-accent/5 rounded-r-lg hover:bg-accent/10 transition-all duration-300">
                 <h3 className="text-xl font-semibold text-foreground">Software Development Mentor</h3>
                 <p className="text-primary font-medium">NxtWave</p>
                 <p className="text-muted-foreground mb-2">Apr 2025 – Present</p>
                 <p className="text-foreground">Guiding fullstack learners in HTML, CSS, JS, Node.js, Python, SQL. Conducting live sessions, technical reviews, and curriculum enhancements.</p>
               </div>
-              <div className="border-l-4 border-primary pl-6 py-2">
+              <div className="border-l-4 border-primary pl-6 py-4 bg-primary/5 rounded-r-lg hover:bg-primary/10 transition-all duration-300">
                 <h3 className="text-xl font-semibold text-foreground">Software Engineer</h3>
                 <p className="text-primary font-medium">Capgemini</p>
                 <p className="text-muted-foreground mb-2">Apr 2022 – May 2023</p>
@@ -241,10 +288,10 @@ const Index = () => {
         </section>
 
         {/* Skills */}
-        <section id="skills" className="animate-slide-up">
-          <Card className="shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
+        <section id="skills" className="animate-on-scroll">
+          <Card className="shadow-lg hover:shadow-xl transition-all duration-500 hover-lift bg-card/50 backdrop-blur-sm border border-border/50">
             <CardHeader>
-              <CardTitle className="flex items-center gap-3 text-3xl text-foreground">
+              <CardTitle className="flex items-center gap-3 text-3xl text-foreground animate-bounce-in">
                 <div className="p-2 bg-accent/10 rounded-lg">
                   <Code className="w-8 h-8 text-accent" />
                 </div>
@@ -257,7 +304,7 @@ const Index = () => {
                   <Badge 
                     key={index} 
                     variant="secondary" 
-                    className="px-4 py-2 text-sm font-medium bg-primary/5 text-primary hover:bg-primary/10 transition-all duration-300 hover-lift cursor-pointer"
+                    className="px-4 py-2 text-sm font-medium bg-primary/5 text-primary hover:bg-primary/10 transition-all duration-300 hover-lift cursor-pointer transform hover:scale-105"
                   >
                     {skill}
                   </Badge>
@@ -268,10 +315,10 @@ const Index = () => {
         </section>
 
         {/* Projects */}
-        <section id="projects" className="animate-slide-up">
-          <Card className="shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
+        <section id="projects" className="animate-on-scroll-left">
+          <Card className="shadow-lg hover:shadow-xl transition-all duration-500 hover-lift bg-card/50 backdrop-blur-sm border border-border/50">
             <CardHeader>
-              <CardTitle className="flex items-center gap-3 text-3xl text-foreground">
+              <CardTitle className="flex items-center gap-3 text-3xl text-foreground animate-scale-in">
                 <div className="p-2 bg-primary/10 rounded-lg">
                   <FolderOpen className="w-8 h-8 text-primary" />
                 </div>
@@ -279,15 +326,49 @@ const Index = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {projects.map((project, index) => (
-                  <div key={index} className="p-6 bg-white rounded-lg border border-border hover:shadow-md transition-all duration-300 hover-lift">
-                    <div className="flex items-start justify-between mb-3">
-                      <h4 className="font-semibold text-foreground text-lg leading-tight">{project.title}</h4>
-                      <Badge variant="outline" className="text-xs text-primary border-primary/20">{project.type}</Badge>
+                  <Card key={index} className="project-card overflow-hidden bg-card/80 backdrop-blur-sm border border-border/50 hover:border-primary/30">
+                    <div className="relative h-48 overflow-hidden">
+                      <img 
+                        src={project.image} 
+                        alt={project.title}
+                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                      />
+                      <div className="absolute top-3 right-3">
+                        <Badge variant="outline" className="text-xs text-primary border-primary/20 bg-background/80 backdrop-blur-sm">
+                          {project.type}
+                        </Badge>
+                      </div>
                     </div>
-                    <p className="text-muted-foreground text-sm leading-relaxed">{project.description}</p>
-                  </div>
+                    <CardContent className="p-6">
+                      <h4 className="font-semibold text-foreground text-lg leading-tight mb-3">{project.title}</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed mb-4">{project.description}</p>
+                      
+                      <div className="flex gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="flex items-center gap-2 hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                          onClick={() => window.open(project.github, '_blank')}
+                        >
+                          <Github className="w-4 h-4" />
+                          GitHub
+                        </Button>
+                        {project.isFullStack && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="flex items-center gap-2 hover:bg-accent hover:text-accent-foreground transition-all duration-300"
+                            disabled
+                          >
+                            <Eye className="w-4 h-4" />
+                            Demo
+                          </Button>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
                 ))}
               </div>
             </CardContent>
@@ -296,10 +377,10 @@ const Index = () => {
 
        
         {/* Certifications */}
-        <section id="certifications" className="animate-slide-up">
-          <Card className="shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
+        <section id="certifications" className="animate-on-scroll-right">
+          <Card className="shadow-lg hover:shadow-xl transition-all duration-500 hover-lift bg-card/50 backdrop-blur-sm border border-border/50">
             <CardHeader>
-              <CardTitle className="flex items-center gap-3 text-3xl text-foreground">
+              <CardTitle className="flex items-center gap-3 text-3xl text-foreground animate-bounce-in">
                 <div className="p-2 bg-primary/10 rounded-lg">
                   <Award className="w-8 h-8 text-primary" />
                 </div>
@@ -307,29 +388,35 @@ const Index = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="p-4 bg-accent/5 rounded-lg hover:bg-accent/10 transition-all duration-300">
-                  <h4 className="font-semibold text-foreground">Power BI Job Simulation</h4>
-                  <p className="text-muted-foreground">Forage (Nov 2024)</p>
-                </div>
-                <div className="p-4 bg-primary/5 rounded-lg hover:bg-primary/10 transition-all duration-300">
-                  <h4 className="font-semibold text-foreground">Python (Basic)</h4>
-                  <p className="text-muted-foreground">Udemy</p>
-                </div>
-                <div className="p-4 bg-accent/5 rounded-lg hover:bg-accent/10 transition-all duration-300">
-                  <h4 className="font-semibold text-foreground">SQL (Basic)</h4>
-                  <p className="text-muted-foreground">Udemy</p>
-                </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <Card className="p-4 bg-accent/5 hover:bg-accent/10 transition-all duration-300 hover-lift border border-accent/20">
+                  <CardContent className="p-0">
+                    <h4 className="font-semibold text-foreground mb-2">Power BI Job Simulation</h4>
+                    <p className="text-muted-foreground">Forage (Nov 2024)</p>
+                  </CardContent>
+                </Card>
+                <Card className="p-4 bg-primary/5 hover:bg-primary/10 transition-all duration-300 hover-lift border border-primary/20">
+                  <CardContent className="p-0">
+                    <h4 className="font-semibold text-foreground mb-2">Python (Basic)</h4>
+                    <p className="text-muted-foreground">Udemy</p>
+                  </CardContent>
+                </Card>
+                <Card className="p-4 bg-accent/5 hover:bg-accent/10 transition-all duration-300 hover-lift border border-accent/20">
+                  <CardContent className="p-0">
+                    <h4 className="font-semibold text-foreground mb-2">SQL (Basic)</h4>
+                    <p className="text-muted-foreground">Udemy</p>
+                  </CardContent>
+                </Card>
               </div>
             </CardContent>
           </Card>
         </section>
 
         {/* Contact Form */}
-        <section id="contact" className="animate-slide-up">
-          <Card className="shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
+        <section id="contact" className="animate-on-scroll">
+          <Card className="shadow-lg hover:shadow-xl transition-all duration-500 hover-lift bg-card/50 backdrop-blur-sm border border-border/50">
             <CardHeader>
-              <CardTitle className="flex items-center gap-3 text-3xl text-foreground">
+              <CardTitle className="flex items-center gap-3 text-3xl text-foreground animate-scale-in">
                 <div className="p-2 bg-accent/10 rounded-lg">
                   <Send className="w-8 h-8 text-accent" />
                 </div>
@@ -390,7 +477,7 @@ const Index = () => {
                   <Button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className="px-8 py-3 bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-300 hover-lift"
+                    className="px-8 py-3 bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-300 hover-lift transform hover:scale-105"
                   >
                     {isSubmitting ? (
                       <>
@@ -407,10 +494,10 @@ const Index = () => {
                 </div>
               </form>
               
-              <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                <p className="text-sm text-blue-800 text-center">
+              <div className="mt-8 p-4 bg-primary/5 border border-primary/20 rounded-lg backdrop-blur-sm">
+                <p className="text-sm text-primary text-center">
                   You can also email me directly at{' '}
-                  <a href="mailto:priyanka.vechalapu@gmail.com" className="font-semibold underline">
+                  <a href="mailto:priyanka.vechalapu@gmail.com" className="font-semibold underline hover:text-accent transition-colors duration-300">
                     priyanka.vechalapu@gmail.com
                   </a>
                 </p>
@@ -421,12 +508,12 @@ const Index = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-primary/5 mt-20 py-12">
+      <footer className="bg-primary/5 backdrop-blur-sm mt-20 py-12 border-t border-border/50">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <div className="flex justify-center gap-6 mb-6">
             <a 
               href="mailto:priyanka.vechalapu@gmail.com" 
-              className="text-primary hover:text-accent transition-colors"
+              className="text-primary hover:text-accent transition-all duration-300 transform hover:scale-110"
             >
               <Mail size={24} />
             </a>
@@ -434,7 +521,7 @@ const Index = () => {
               href="https://github.com/Anjali-Priyanka" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-primary hover:text-accent transition-colors"
+              className="text-primary hover:text-accent transition-all duration-300 transform hover:scale-110"
             >
               <Github size={24} />
             </a>
@@ -442,7 +529,7 @@ const Index = () => {
               href="https://linkedin.com/in/anjali-priyanka-vechalapu-9a69ab1aa" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-primary hover:text-accent transition-colors"
+              className="text-primary hover:text-accent transition-all duration-300 transform hover:scale-110"
             >
               <Linkedin size={24} />
             </a>

@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -42,31 +43,35 @@ const Navigation = () => {
         <div className="flex items-center justify-between">
           <button 
             onClick={() => scrollToSection('hero')}
-            className="text-xl font-bold text-primary hover:text-accent transition-colors"
+            className="text-xl font-bold text-primary hover:text-accent transition-colors duration-300"
           >
             Anjali Priyanka
           </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="text-muted-foreground hover:text-primary transition-colors duration-200 font-medium"
+                className="text-muted-foreground hover:text-primary transition-colors duration-300 font-medium"
               >
                 {item.label}
               </button>
             ))}
+            <ThemeToggle />
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 text-muted-foreground hover:text-primary"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              className="p-2 text-muted-foreground hover:text-primary transition-colors duration-300"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
@@ -77,7 +82,7 @@ const Navigation = () => {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="text-muted-foreground hover:text-primary transition-colors duration-200 font-medium text-left py-2"
+                  className="text-muted-foreground hover:text-primary transition-colors duration-300 font-medium text-left py-2"
                 >
                   {item.label}
                 </button>
