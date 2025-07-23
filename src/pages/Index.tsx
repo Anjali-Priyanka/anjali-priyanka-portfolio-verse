@@ -175,14 +175,14 @@ const Index = () => {
               className="flex items-center gap-2 px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover-lift"
             >
               <Mail className="w-4 h-4 text-primary" />
-              <span className="text-foreground">priyanka.vechalapu@gmail.com</span>
+              <span className="text-black">priyanka.vechalapu@gmail.com</span>
             </a>
             <a 
               href="tel:7729841493" 
               className="flex items-center gap-2 px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover-lift"
             >
               <Phone className="w-4 h-4 text-accent" />
-              <span className="text-foreground">7729841493</span>
+              <span className="text-black">7729841493</span>
             </a>
           </div>
 
