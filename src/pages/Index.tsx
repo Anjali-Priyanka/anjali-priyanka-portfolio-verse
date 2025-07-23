@@ -94,7 +94,8 @@ const Index = () => {
       type: "Academic",
       image: "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=800",
       github: "https://github.com/Anjali-Priyanka/electricity-price-forecasting",
-      isFullStack: false
+      isFullStack: false,
+      demo: null
     },
     {
       title: "Text Mining on Jane Austen's Novels",
@@ -102,7 +103,8 @@ const Index = () => {
       type: "Academic",
       image: "https://images.pexels.com/photos/256559/pexels-photo-256559.jpeg?auto=compress&cs=tinysrgb&w=800",
       github: "https://github.com/Anjali-Priyanka/text-mining-jane-austen",
-      isFullStack: false
+      isFullStack: false,
+      demo: null
     },
     {
       title: "AI Study Buddy",
@@ -110,7 +112,8 @@ const Index = () => {
       type: "AI Project",
       image: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=800",
       github: "https://github.com/Anjali-Priyanka/ai-study-buddy",
-      isFullStack: false
+      isFullStack: false,
+      demo: null
     },
     {
       title: "AI Agent",
@@ -118,7 +121,8 @@ const Index = () => {
       type: "AI Project",
       image: "https://images.pexels.com/photos/8386434/pexels-photo-8386434.jpeg?auto=compress&cs=tinysrgb&w=800",
       github: "https://github.com/Anjali-Priyanka/ai-agent",
-      isFullStack: false
+      isFullStack: false,
+      demo: null
     },
     {
       title: "Patient Appointment RAC App",
@@ -126,7 +130,8 @@ const Index = () => {
       type: "AI Project",
       image: "https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg?auto=compress&cs=tinysrgb&w=800",
       github: "https://github.com/Anjali-Priyanka/patient-appointment-rag",
-      isFullStack: false
+      isFullStack: false,
+      demo: null
     },
     {
       title: "Multimodal Media Generator",
@@ -134,7 +139,8 @@ const Index = () => {
       type: "AI Project",
       image: "https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=800",
       github: "https://github.com/Anjali-Priyanka/multimodal-media-generator",
-      isFullStack: false
+      isFullStack: false,
+      demo: null
     },
     {
       title: "FinGenAI",
@@ -142,7 +148,8 @@ const Index = () => {
       type: "AI Project",
       image: "https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&w=800",
       github: "https://github.com/Anjali-Priyanka/fingenai",
-      isFullStack: true
+      isFullStack: true,
+      demo: "https://fingenai-demo.netlify.app" // You can update this with your actual demo URL
     }
   ];
 
@@ -355,15 +362,25 @@ const Index = () => {
                           <Github className="w-4 h-4" />
                           GitHub
                         </Button>
-                        {project.isFullStack && (
+                        {project.demo ? (
                           <Button
                             variant="outline"
                             size="sm"
                             className="flex items-center gap-2 hover:bg-accent hover:text-accent-foreground transition-all duration-300"
-                            disabled
+                            onClick={() => window.open(project.demo, '_blank')}
                           >
                             <Eye className="w-4 h-4" />
                             Demo
+                          </Button>
+                        ) : project.isFullStack ? (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="flex items-center gap-2 opacity-50 cursor-not-allowed"
+                            disabled
+                          >
+                            <Eye className="w-4 h-4" />
+                            Demo Soon
                           </Button>
                         )}
                       </div>
