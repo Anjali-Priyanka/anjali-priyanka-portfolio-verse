@@ -294,30 +294,7 @@ const Index = () => {
           </Card>
         </section>
 
-        {/* Services */}
-        <section id="services" className="animate-slide-up">
-          <Card className="shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3 text-3xl text-foreground">
-                <div className="p-2 bg-accent/10 rounded-lg">
-                  <Target className="w-8 h-8 text-accent" />
-                </div>
-                🎯 Services Offered
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-2 gap-4">
-                {services.map((service, index) => (
-                  <div key={index} className="flex items-start gap-3 p-4 bg-primary/5 rounded-lg hover:bg-primary/10 transition-all duration-300">
-                    <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                    <p className="text-foreground font-medium">{service}</p>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </section>
-
+       
         {/* Certifications */}
         <section id="certifications" className="animate-slide-up">
           <Card className="shadow-lg hover:shadow-xl transition-all duration-300 hover-lift">
