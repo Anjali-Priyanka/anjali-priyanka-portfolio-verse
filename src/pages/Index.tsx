@@ -322,7 +322,7 @@ const Index = () => {
         </section>
 
         {/* Projects */}
-        <section id="projects" className="animate-on-scroll-left">
+        <section id="projects" className="animate-on-scroll">
           <Card className="shadow-lg hover:shadow-xl transition-all duration-500 hover-lift bg-card/50 backdrop-blur-sm border border-border/50">
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-3xl text-foreground animate-scale-in">
