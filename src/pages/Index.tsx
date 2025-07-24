@@ -9,6 +9,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, Github, Linkedin, ExternalLink, Send, User, GraduationCap, Briefcase, Award, Code, FolderOpen, Lightbulb, Target, Eye, ArrowUp } from 'lucide-react';
 import Navigation from '../components/Navigation';
 import ProfilePhoto from '../components/ProfilePhoto';
+import { db } from '@/lib/firebase';
+import { collection, addDoc } from 'firebase/firestore';
 
 const Index = () => {
   const { toast } = useToast();
@@ -72,29 +74,34 @@ const Index = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Create mailto link with pre-filled content
-    const subject = encodeURIComponent(`Portfolio Contact: Message from ${formData.name}`);
-    const body = encodeURIComponent(
-      `Hi Anjali,\n\nYou have received a new message from your portfolio website.\n\n` +
-      `Name: ${formData.name}\n` +
-      `Email: ${formData.email}\n\n` +
-      `Message:\n${formData.message}\n\n` +
-      `Best regards,\n${formData.name}`
-    );
-    const mailtoLink = `mailto:priyanka.vechalapu@gmail.com?subject=${subject}&body=${body}`;
-    
-    // Open email client
-    window.open(mailtoLink, '_blank');
-    
-    toast({
-      title: "Email Client Opened!",
-      description: "Your default email app should open with the message pre-filled. Just click send!",
-      variant: "default",
-    });
-    
-    // Clear form
-    setFormData({ name: '', email: '', message: '' });
-    setIsSubmitting(false);
+    try {
+      // Save form data to Firebase Firestore
+      await addDoc(collection(db, 'contact_submissions'), {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+        timestamp: new Date(),
+        createdAt: new Date().toISOString()
+      });
+
+      toast({
+        title: "Message Sent Successfully!",
+        description: "Thank you for your message. I'll get back to you soon!",
+        variant: "default",
+      });
+
+      // Clear form
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const skills = [
