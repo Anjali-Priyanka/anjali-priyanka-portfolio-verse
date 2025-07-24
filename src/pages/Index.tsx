@@ -10,6 +10,7 @@ import Navigation from '../components/Navigation';
 import ProfilePhoto from '../components/ProfilePhoto';
 import { db } from '@/lib/firebase';
 import { collection, addDoc } from 'firebase/firestore';
+import emailjs from '@emailjs/browser';
 
 const Index = () => {
   const { toast } = useToast();
@@ -74,23 +75,85 @@ const Index = () => {
     setIsSubmitting(true);
 
     try {
-      // Save form data to Firebase Firestore
-      await addDoc(collection(db, 'contact_submissions'), {
+      // Save form data to Firebase Firestore first
+      const docRef = await addDoc(collection(db, 'contact_submissions'), {
         name: formData.name,
         email: formData.email,
         message: formData.message,
         timestamp: new Date(),
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
+        emailStatus: 'pending'
       });
 
-      toast({
-        title: "Message Sent Successfully!",
-        description: "Thank you for your message. I'll get back to you soon!",
-        variant: "default",
-      });
+      // After successful Firebase storage, send emails
+      try {
+        // Initialize EmailJS (replace with your actual IDs)
+        const SERVICE_ID = 'your_service_id';
+        const ADMIN_TEMPLATE_ID = 'your_admin_template_id';
+        const USER_TEMPLATE_ID = 'your_user_template_id';
+        const PUBLIC_KEY = 'your_public_key';
+
+        // Send admin notification email
+        await emailjs.send(
+          SERVICE_ID,
+          ADMIN_TEMPLATE_ID,
+          {
+            to_email: 'yourportfolioemail@gmail.com',
+            from_name: formData.name,
+            from_email: formData.email,
+            message: formData.message,
+            subject: `📩 New Contact from ${formData.name}`,
+          },
+          PUBLIC_KEY
+        );
+
+        // Send user confirmation email
+        await emailjs.send(
+          SERVICE_ID,
+          USER_TEMPLATE_ID,
+          {
+            to_email: formData.email,
+            to_name: formData.name,
+            from_name: 'Anjali Priyanka',
+            subject: 'Thanks for contacting Anjali Priyanka!',
+            message: `Hi ${formData.name},\n\nThanks for reaching out. I've received your message and will get back to you shortly.\n\n— Anjali Priyanka`,
+          },
+          PUBLIC_KEY
+        );
+
+        // Update Firebase document with successful email status
+        await addDoc(collection(db, 'contact_submissions'), {
+          ...docRef,
+          emailStatus: 'sent',
+          emailSentAt: new Date().toISOString()
+        });
+
+        toast({
+          title: "Message Sent Successfully!",
+          description: "Thank you for your message. Confirmation emails have been sent!",
+          variant: "default",
+        });
+
+      } catch (emailError) {
+        console.error('Email sending failed:', emailError);
+        
+        // Update Firebase document with failed email status
+        await addDoc(collection(db, 'contact_submissions'), {
+          ...docRef,
+          emailStatus: 'failed',
+          emailError: emailError instanceof Error ? emailError.message : 'Unknown error'
+        });
+
+        toast({
+          title: "Message Saved Successfully!",
+          description: "Your message was saved but email notifications failed. I'll still get back to you!",
+          variant: "default",
+        });
+      }
 
       // Clear form
       setFormData({ name: '', email: '', message: '' });
+      
     } catch (error) {
       console.error('Error submitting form:', error);
       toast({
