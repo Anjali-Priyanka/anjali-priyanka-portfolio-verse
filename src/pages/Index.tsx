@@ -382,7 +382,7 @@ const Index = () => {
                             <Eye className="w-4 h-4" />
                             Demo Soon
                           </Button>
-                        )}
+                        ) : null}
                       </div>
                     </CardContent>
                   </Card>
