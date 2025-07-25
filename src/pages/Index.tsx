@@ -70,8 +70,9 @@ const Index = () => {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
     
     // Basic validation
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
@@ -130,40 +131,23 @@ const Index = () => {
         // Initialize EmailJS with the public key
         emailjs.init(PUBLIC_KEY);
 
-        // Send admin notification email
-        await emailjs.send(
+        // Send admin notification email using sendForm
+        await emailjs.sendForm(
           SERVICE_ID,
           ADMIN_TEMPLATE_ID,
-          {
-            from_name: formData.name,
-            from_email: formData.email,
-            subject: `New Message from ${formData.name} via Portfolio`,
-            message: formData.message,
-            to_email: 'priyanka.vechalapu@gmail.com',
-          }
+          form,
+          PUBLIC_KEY
         );
 
-        // Send user confirmation email
+        // Send user confirmation email using send
         await emailjs.send(
           SERVICE_ID,
           USER_TEMPLATE_ID,
           {
-            from_name: 'Anjali Priyanka VECHALAPU',
-            from_email: 'priyanka.vechalapu@gmail.com',
-            subject: 'Thank you for contacting me!',
-            message: `Hi ${formData.name},
-
-Thank you for reaching out to me through my portfolio!
-
-I truly appreciate your message and will get back to you as soon as possible.
-
-Until then, feel free to connect with me on LinkedIn or check out more of my work.
-
-Best regards,
-Anjali Priyanka VECHALAPU`,
+            from_name: formData.name,
             to_email: formData.email,
-            to_name: formData.name,
-          }
+          },
+          PUBLIC_KEY
         );
 
         toast({
