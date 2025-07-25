@@ -87,18 +87,18 @@ const Index = () => {
 
       // After successful Firebase storage, send emails
       try {
-        // Initialize EmailJS (replace with your actual IDs)
-        const SERVICE_ID = 'your_service_id';
-        const ADMIN_TEMPLATE_ID = 'your_admin_template_id';
-        const USER_TEMPLATE_ID = 'your_user_template_id';
-        const PUBLIC_KEY = 'your_public_key';
+        // EmailJS Configuration - Replace with your actual credentials from https://dashboard.emailjs.com/
+        const SERVICE_ID = 'service_YOUR_SERVICE_ID';
+        const ADMIN_TEMPLATE_ID = 'template_YOUR_ADMIN_TEMPLATE';
+        const USER_TEMPLATE_ID = 'template_YOUR_USER_TEMPLATE';
+        const PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
 
         // Send admin notification email
         await emailjs.send(
           SERVICE_ID,
           ADMIN_TEMPLATE_ID,
           {
-            to_email: 'yourportfolioemail@gmail.com',
+            to_email: 'priyanka.vechalapu@gmail.com',
             from_name: formData.name,
             from_email: formData.email,
             message: formData.message,
