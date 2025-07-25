@@ -72,17 +72,51 @@ const Index = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Basic validation
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      toast({
+        title: "Validation Error",
+        description: "Please fill in all required fields.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast({
+        title: "Invalid Email",
+        description: "Please enter a valid email address.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
+      // Get additional info for analytics
+      const userAgent = navigator.userAgent;
+      const timestamp = new Date();
+      const browserInfo = {
+        userAgent,
+        language: navigator.language,
+        platform: navigator.platform,
+        timestamp: timestamp.toISOString()
+      };
+
       // Save form data to Firebase Firestore first
       const docRef = await addDoc(collection(db, 'contact_submissions'), {
         name: formData.name,
         email: formData.email,
         message: formData.message,
-        timestamp: new Date(),
-        createdAt: new Date().toISOString(),
-        emailStatus: 'pending'
+        timestamp,
+        createdAt: timestamp.toISOString(),
+        emailStatus: 'pending',
+        browserInfo,
+        source: 'portfolio_website'
       });
 
       // After successful Firebase storage, send emails
@@ -102,7 +136,9 @@ const Index = () => {
             from_name: formData.name,
             from_email: formData.email,
             message: formData.message,
-            subject: `📩 New Contact from ${formData.name}`,
+            subject: `📩 New Portfolio Contact from ${formData.name}`,
+            browser_info: `Browser: ${navigator.userAgent.split(' ').pop()}, Platform: ${navigator.platform}`,
+            timestamp: timestamp.toLocaleString()
           },
           PUBLIC_KEY
         );
@@ -116,37 +152,23 @@ const Index = () => {
             to_name: formData.name,
             from_name: 'Anjali Priyanka',
             subject: 'Thanks for contacting Anjali Priyanka!',
-            message: `Hi ${formData.name},\n\nThanks for reaching out. I've received your message and will get back to you shortly.\n\n— Anjali Priyanka`,
+            message: `Hi ${formData.name},\n\nThanks for reaching out through my portfolio! I've received your message:\n\n"${formData.message}"\n\nI'll get back to you within 24-48 hours.\n\nBest regards,\nAnjali Priyanka\nSoftware Developer & Tech Mentor`,
           },
           PUBLIC_KEY
         );
 
-        // Update Firebase document with successful email status
-        await addDoc(collection(db, 'contact_submissions'), {
-          ...docRef,
-          emailStatus: 'sent',
-          emailSentAt: new Date().toISOString()
-        });
-
         toast({
-          title: "Message Sent Successfully!",
-          description: "Thank you for your message. Confirmation emails have been sent!",
+          title: "✅ Message Sent Successfully!",
+          description: `Thanks for reaching out, ${formData.name}! I'll get back to you soon. Check your email for confirmation.`,
           variant: "default",
         });
 
       } catch (emailError) {
         console.error('Email sending failed:', emailError);
-        
-        // Update Firebase document with failed email status
-        await addDoc(collection(db, 'contact_submissions'), {
-          ...docRef,
-          emailStatus: 'failed',
-          emailError: emailError instanceof Error ? emailError.message : 'Unknown error'
-        });
 
         toast({
-          title: "Message Saved Successfully!",
-          description: "Your message was saved but email notifications failed. I'll still get back to you!",
+          title: "⚠️ Partial Success",
+          description: "Your message was saved successfully! Email notifications had issues, but I'll still get back to you.",
           variant: "default",
         });
       }
@@ -157,8 +179,8 @@ const Index = () => {
     } catch (error) {
       console.error('Error submitting form:', error);
       toast({
-        title: "Error",
-        description: "Failed to send message. Please try again later.",
+        title: "❌ Submission Failed",
+        description: "Something went wrong. Please try again or email me directly at priyanka.vechalapu@gmail.com",
         variant: "destructive",
       });
     } finally {
@@ -580,12 +602,12 @@ const Index = () => {
                   <Button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className="px-8 py-3 bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-300 hover-lift transform hover:scale-105"
+                    className="px-8 py-3 bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-300 hover-lift transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                   >
                     {isSubmitting ? (
                       <>
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                        Opening Email...
+                        Sending Message...
                       </>
                     ) : (
                       <>
@@ -597,13 +619,21 @@ const Index = () => {
                 </div>
               </form>
               
-              <div className="mt-8 p-4 bg-primary/5 border border-primary/20 rounded-lg backdrop-blur-sm">
+              <div className="mt-8 p-6 bg-gradient-to-r from-primary/5 to-accent/5 border border-primary/20 rounded-lg backdrop-blur-sm">
+                <div className="text-center space-y-2">
+                  <p className="text-sm text-primary font-medium">
+                    💬 Prefer direct contact?
+                  </p>
                 <p className="text-sm text-primary text-center">
-                  You can also email me directly at{' '}
+                    Email me directly at{' '}
                   <a href="mailto:priyanka.vechalapu@gmail.com" className="font-semibold underline hover:text-accent transition-colors duration-300">
                     priyanka.vechalapu@gmail.com
                   </a>
                 </p>
+                  <p className="text-xs text-muted-foreground">
+                    📱 Or call: <a href="tel:7729841493" className="font-medium hover:text-primary transition-colors">7729841493</a>
+                  </p>
+                </div>
               </div>
             </CardContent>
           </Card>
