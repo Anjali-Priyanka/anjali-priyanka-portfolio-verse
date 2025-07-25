@@ -127,31 +127,20 @@ const Index = () => {
         const USER_TEMPLATE_ID = 'template_49biefa';
         const PUBLIC_KEY = 'VwYC7Fqt0bUr885on';
 
+        // Initialize EmailJS with the public key
+        emailjs.init(PUBLIC_KEY);
+
         // Send admin notification email
         await emailjs.send(
           SERVICE_ID,
           ADMIN_TEMPLATE_ID,
           {
-            to_email: 'priyanka.vechalapu@gmail.com',
             from_name: formData.name,
             from_email: formData.email,
+            subject: `New Message from ${formData.name} via Portfolio`,
             message: formData.message,
-            subject: `📬 New Message from ${formData.name} via Portfolio`,
-            browser_info: `Browser: ${navigator.userAgent.split(' ').pop()}, Platform: ${navigator.platform}`,
-            timestamp: timestamp.toLocaleString(),
-            formatted_message: `
-Name: ${formData.name}
-Email: ${formData.email}
-
-Message:
-${formData.message}
-
-Submitted on: ${timestamp.toLocaleString()}
-Browser: ${navigator.userAgent.split(' ').pop()}
-Platform: ${navigator.platform}
-            `.trim()
-          },
-          PUBLIC_KEY
+            to_email: 'priyanka.vechalapu@gmail.com',
+          }
         );
 
         // Send user confirmation email
@@ -159,11 +148,10 @@ Platform: ${navigator.platform}
           SERVICE_ID,
           USER_TEMPLATE_ID,
           {
-            to_email: formData.email,
-            to_name: formData.name,
             from_name: 'Anjali Priyanka VECHALAPU',
-            subject: 'Thank you for contacting Anjali Priyanka VECHALAPU',
-            auto_reply_message: `Hi ${formData.name},
+            from_email: 'priyanka.vechalapu@gmail.com',
+            subject: 'Thank you for contacting me!',
+            message: `Hi ${formData.name},
 
 Thank you for reaching out to me through my portfolio!
 
@@ -173,8 +161,9 @@ Until then, feel free to connect with me on LinkedIn or check out more of my wor
 
 Best regards,
 Anjali Priyanka VECHALAPU`,
-          },
-          PUBLIC_KEY
+            to_email: formData.email,
+            to_name: formData.name,
+          }
         );
 
         toast({
