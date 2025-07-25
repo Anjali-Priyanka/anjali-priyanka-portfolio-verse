@@ -136,9 +136,20 @@ const Index = () => {
             from_name: formData.name,
             from_email: formData.email,
             message: formData.message,
-            subject: `📩 New Portfolio Contact from ${formData.name}`,
+            subject: `📬 New Message from ${formData.name} via Portfolio`,
             browser_info: `Browser: ${navigator.userAgent.split(' ').pop()}, Platform: ${navigator.platform}`,
-            timestamp: timestamp.toLocaleString()
+            timestamp: timestamp.toLocaleString(),
+            formatted_message: `
+Name: ${formData.name}
+Email: ${formData.email}
+
+Message:
+${formData.message}
+
+Submitted on: ${timestamp.toLocaleString()}
+Browser: ${navigator.userAgent.split(' ').pop()}
+Platform: ${navigator.platform}
+            `.trim()
           },
           PUBLIC_KEY
         );
@@ -150,16 +161,25 @@ const Index = () => {
           {
             to_email: formData.email,
             to_name: formData.name,
-            from_name: 'Anjali Priyanka',
-            subject: 'Thanks for contacting Anjali Priyanka!',
-            message: `Hi ${formData.name},\n\nThanks for reaching out through my portfolio! I've received your message:\n\n"${formData.message}"\n\nI'll get back to you within 24-48 hours.\n\nBest regards,\nAnjali Priyanka\nSoftware Developer & Tech Mentor`,
+            from_name: 'Anjali Priyanka VECHALAPU',
+            subject: 'Thank you for contacting Anjali Priyanka VECHALAPU',
+            auto_reply_message: `Hi ${formData.name},
+
+Thank you for reaching out to me through my portfolio!
+
+I truly appreciate your message and will get back to you as soon as possible.
+
+Until then, feel free to connect with me on LinkedIn or check out more of my work.
+
+Best regards,
+Anjali Priyanka VECHALAPU`,
           },
           PUBLIC_KEY
         );
 
         toast({
-          title: "✅ Message Sent Successfully!",
-          description: `Thanks for reaching out, ${formData.name}! I'll get back to you soon. Check your email for confirmation.`,
+          title: "✅ Thank you! Your message has been sent.",
+          description: `Thanks for reaching out, ${formData.name}! I'll get back to you as soon as possible. Check your email for confirmation.`,
           variant: "default",
         });
 
