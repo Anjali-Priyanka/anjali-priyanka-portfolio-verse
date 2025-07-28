@@ -294,6 +294,17 @@ const Index = () => {
   github: "https://github.com/Anjali-Priyanka/lyric-artist",
   isFullStack: true,
   demo: "https://studio--lyric-assist-20167.us-central1.hosted.app/"
+},
+    {
+  title: "YouTube Automation AI",
+  description:
+    "An AI-powered automation tool for YouTube content creators. It helps generate video scripts, create visuals, and automate uploads and scheduling, streamlining the entire content creation process.",
+  type: "AI Project",
+  image:
+    "https://raw.githubusercontent.com/Anjali-Priyanka/YouTube-Automation-AI/main/assets/youtube-automation-preview.png",
+  github: "https://github.com/Anjali-Priyanka/Youtube-Automation",
+  isFullStack: true,
+  demo: "https://studio--youtube-automation-ai-demo.hosted.app/",
 }
 
   ];
