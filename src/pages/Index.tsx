@@ -154,9 +154,9 @@ const Index = () => {
           USER_TEMPLATE_ID,
           {
             to_name: formData.name,
-            to_email: formData.email,
+            to_email: 'priyanka.vechalapu@gmail.com',
             from_name: formData.name,
-            from_email: 'priyanka.vechalapu@gmail.com',
+            from_email: formData.email,
             reply_to: 'priyanka.vechalapu@gmail.com'
           },
           PUBLIC_KEY
@@ -677,9 +677,6 @@ const Index = () => {
                     priyanka.vechalapu@gmail.com
                   </a>
                 </p>
-                  <p className="text-xs text-muted-foreground">
-                    📱 Or call: <a href="tel:7729841493" className="font-medium hover:text-primary transition-colors">7729841493</a>
-                  </p>
                 </div>
               </div>
             </CardContent>
