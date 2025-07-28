@@ -271,7 +271,7 @@ const Index = () => {
     type: "AI Project",
     image:
       "https://ik.imagekit.io/6crff56hu/Screenshot%202025-07-28%20135837.png?updatedAt=1753691634970",
-    github: "https://github.com/Anjali-Priyanka/MediGem-AI",
+    github: "https://github.com/Anjali-Priyanka/MediGem-AI.git",
     isFullStack: true,
     demo: "https://studio--medigem-ai-gkodu.us-central1.hosted.app/",
   },
