@@ -258,7 +258,7 @@ const Index = () => {
       "Your Personalized AI Healthcare Assistant. MediGem AI helps users book appointments, understand medical symptoms, and manage health data using advanced AI models.",
     type: "AI Project",
     image:
-      "https://raw.githubusercontent.com/Anjali-Priyanka/MediGem-AI/main/assets/medigem-preview.png",
+      "https://i.imgur.com/M3Ds6h4.png",
     github: "https://github.com/Anjali-Priyanka/MediGem-AI",
     isFullStack: true,
     demo: "https://studio--medigem-ai-gkodu.us-central1.hosted.app/",
