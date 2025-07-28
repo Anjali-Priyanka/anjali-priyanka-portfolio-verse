@@ -258,7 +258,7 @@ const Index = () => {
       "Your Personalized AI Healthcare Assistant. MediGem AI helps users book appointments, understand medical symptoms, and manage health data using advanced AI models.",
     type: "AI Project",
     image:
-      "https://i.imgur.com/M3Ds6h4.png",
+      "https://ik.imagekit.io/6crff56hu/Screenshot%202025-07-28%20135837.png?updatedAt=1753691634970",
     github: "https://github.com/Anjali-Priyanka/MediGem-AI",
     isFullStack: true,
     demo: "https://studio--medigem-ai-gkodu.us-central1.hosted.app/",
@@ -269,11 +269,21 @@ const Index = () => {
       "AI-powered food recommendation system to find meals based on your taste, mood, and dietary preferences. Turn your ingredients into delicious meals instantly!",
     type: "AI Project",
     image:
-      "https://raw.githubusercontent.com/Anjali-Priyanka/QuickBite-AI/main/assets/quickbite-preview.png",
+      "https://ik.imagekit.io/6crff56hu/Screenshot%202025-07-28%20124453.png?updatedAt=1753693054155",
     github: "https://github.com/Anjali-Priyanka/QuickBite-AI",
     isFullStack: true,
     demo: "https://studio--quickbite-ai-rnk9n.us-central1.hosted.app/",
-  }
+  },
+    {
+  title: "LyricAssist AI",
+  description: "AI-powered songwriting assistant that helps generate lyrics based on mood, theme, or genre. Ideal for musicians, poets, and creators seeking inspiration.",
+  type: "AI Project",
+  image: "https://ik.imagekit.io/6crff56hu/image.png?updatedAt=1753693302172", // Uploaded image from your earlier screenshot
+  github: "https://github.com/Anjali-Priyanka/lyric-artist",
+  isFullStack: true,
+  demo: "https://studio--lyric-assist-20167.us-central1.hosted.app/"
+}
+
   ];
 
   const services = [
