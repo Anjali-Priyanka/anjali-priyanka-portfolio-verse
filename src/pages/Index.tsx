@@ -262,7 +262,7 @@ const Index = () => {
       image: "https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&w=800",
       github: "https://github.com/Anjali-Priyanka/fingenai",
       isFullStack: true,
-      demo: "https://fingenai-demo.netlify.app" // You can update this with your actual demo URL
+      demo: "https://finai-compass-ui.lovable.app/" // You can update this with your actual demo URL
     },
     {
     title: "MediGem AI",
