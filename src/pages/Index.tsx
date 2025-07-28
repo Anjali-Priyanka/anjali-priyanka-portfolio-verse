@@ -261,7 +261,7 @@ const Index = () => {
       "https://raw.githubusercontent.com/Anjali-Priyanka/MediGem-AI/main/assets/medigem-preview.png",
     github: "https://github.com/Anjali-Priyanka/MediGem-AI",
     isFullStack: true,
-    demo: "https://studio--medigem-ai-rnk9n.us-central1.hosted.app/",
+    demo: "https://studio--medigem-ai-gkodu.us-central1.hosted.app/",
   },
   {
     title: "QuickBite AI",
