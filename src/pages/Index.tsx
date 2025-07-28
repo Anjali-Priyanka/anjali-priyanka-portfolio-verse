@@ -300,8 +300,7 @@ const Index = () => {
   description:
     "An AI-powered automation tool for YouTube content creators. It helps generate video scripts, create visuals, and automate uploads and scheduling, streamlining the entire content creation process.",
   type: "AI Project",
-  image:
-    "https://teams.microsoft.com/l/message/19:c0c33393e2f14f1280158e6b5b5a49ea@thread.v2/1753702153198?context=%7B%22contextType%22%3A%22chat%22%7D",
+  image: "https://ik.imagekit.io/6crff56hu/b6c443f0-b975-4818-b697-9964a907add0.jpg?updatedAt=1753702876466",
   github: "https://github.com/Anjali-Priyanka/Youtube-Automation",
   isFullStack: true,
   demo: "https://studio--youtube-automation-ai-demo.hosted.app/",
