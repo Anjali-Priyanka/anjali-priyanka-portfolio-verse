@@ -251,7 +251,29 @@ const Index = () => {
       github: "https://github.com/Anjali-Priyanka/fingenai",
       isFullStack: true,
       demo: "https://fingenai-demo.netlify.app" // You can update this with your actual demo URL
-    }
+    },
+    {
+    title: "MediGem AI",
+    description:
+      "Your Personalized AI Healthcare Assistant. MediGem AI helps users book appointments, understand medical symptoms, and manage health data using advanced AI models.",
+    type: "AI Project",
+    image:
+      "https://raw.githubusercontent.com/Anjali-Priyanka/MediGem-AI/main/assets/medigem-preview.png",
+    github: "https://github.com/Anjali-Priyanka/MediGem-AI",
+    isFullStack: true,
+    demo: "https://studio--medigem-ai-rnk9n.us-central1.hosted.app/",
+  },
+  {
+    title: "QuickBite AI",
+    description:
+      "AI-powered food recommendation system to find meals based on your taste, mood, and dietary preferences. Turn your ingredients into delicious meals instantly!",
+    type: "AI Project",
+    image:
+      "https://raw.githubusercontent.com/Anjali-Priyanka/QuickBite-AI/main/assets/quickbite-preview.png",
+    github: "https://github.com/Anjali-Priyanka/QuickBite-AI",
+    isFullStack: true,
+    demo: "https://studio--quickbite-ai-rnk9n.us-central1.hosted.app/",
+  }
   ];
 
   const services = [
