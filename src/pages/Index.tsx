@@ -282,7 +282,7 @@ const Index = () => {
     type: "AI Project",
     image:
       "https://ik.imagekit.io/6crff56hu/Screenshot%202025-07-28%20124453.png?updatedAt=1753693054155",
-    github: "https://github.com/Anjali-Priyanka/QuickBite-AI",
+    github: "https://github.com/Anjali-Priyanka/QuickBite-AI.git",
     isFullStack: true,
     demo: "https://studio--quickbite-ai-rnk9n.us-central1.hosted.app/",
   },
