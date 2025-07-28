@@ -131,11 +131,20 @@ const Index = () => {
         // Initialize EmailJS with the public key
         emailjs.init(PUBLIC_KEY);
 
-        // Send admin notification email using sendForm
-        await emailjs.sendForm(
+        // Send admin notification email with proper from/to addresses
+        await emailjs.send(
           SERVICE_ID,
           ADMIN_TEMPLATE_ID,
-          form,
+          {
+            from_name: formData.name,
+            from_email: formData.email,
+            to_email: 'priyanka.vechalapu@gmail.com',
+            message: formData.message,
+            reply_to: formData.email,
+            user_email: formData.email,
+            user_name: formData.name,
+            user_message: formData.message
+          },
           PUBLIC_KEY
         );
 
@@ -144,8 +153,11 @@ const Index = () => {
           SERVICE_ID,
           USER_TEMPLATE_ID,
           {
-            from_name: formData.name,
+            to_name: formData.name,
             to_email: formData.email,
+            from_name: formData.name,
+            from_email: 'priyanka.vechalapu@gmail.com',
+            reply_to: 'priyanka.vechalapu@gmail.com'
           },
           PUBLIC_KEY
         );
