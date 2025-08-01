@@ -143,7 +143,15 @@ const Index = () => {
             reply_to: formData.email,
             user_email: formData.email,
             user_name: formData.name,
-            user_message: formData.message
+            user_message: formData.message,
+            // Additional template variables for better email formatting
+            name: formData.name,
+            email: formData.email,
+            contact_name: formData.name,
+            contact_email: formData.email,
+            contact_message: formData.message,
+            sender_name: formData.name,
+            sender_email: formData.email
           },
           PUBLIC_KEY
         );
