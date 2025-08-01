@@ -139,7 +139,13 @@ const Index = () => {
             from_name: formData.name,
             from_email: formData.email,
             to_email: 'priyanka.vechalapu@gmail.com',
-            message: formData.message,
+            message: `New contact form submission:
+
+Name: ${formData.name}
+Email: ${formData.email}
+
+Message:
+${formData.message}`,
             reply_to: formData.email,
             user_email: formData.email,
             user_name: formData.name,
